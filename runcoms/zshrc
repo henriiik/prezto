@@ -10,4 +10,11 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# only branches and files git completion
+__git_files () {
+    _wanted files expl 'local files' _files
+}
+
+alias j=fasd_cd
+
+alias chrome='open -a /Applications/Google\ Chrome.app'
