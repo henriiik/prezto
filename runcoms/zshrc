@@ -17,4 +17,11 @@ __git_files () {
 
 alias j=fasd_cd
 
-alias chrome='open -a /Applications/Google\ Chrome.app'
+alias ec="emacsclient --no-wait"
+alias bdi='eval "$(boot2docker shellinit)"'
+alias bds='boot2docker ssh'
+alias bd='boot2docker'
+
+PERL_MB_OPT="--install_base \"/home/henro/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/home/henro/perl5"; export PERL_MM_OPT;
+PERL5LIB="/home/henro/perl5/lib/perl5"; export PERL5LIB;

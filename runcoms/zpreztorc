@@ -35,7 +35,6 @@ zstyle ':prezto:load' pmodule \
   'fasd' \
   'node' \
   'git' \
-  'osx' \
   'syntax-highlighting' \
   'prompt'
 
