@@ -9,3 +9,17 @@
 if [[ ( "$SHLVL" -eq 1 && ! -o LOGIN ) && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi
+
+export OPENSSL_ROOT_DIR=/usr/local/opt/openssl
+export OPENSSL_LIB_DIR=/usr/local/opt/openssl/lib
+export OPENSSL_INCLUDE_DIR=/usr/local/opt/openssl/include
+export LIBRARY_PATH="$LIBRARY_PATH:/usr/local/lib/"
+
+export MYCONFIGURA_VOLUME_PATH=$HOME/Development/Configura/
+export MYCONFIGURA_DOCKER_PATH=$MYCONFIGURA_VOLUME_PATH
+
+source $MYCONFIGURA_VOLUME_PATH/MyConfigura/setup/bash/myconfigura.sh
+export MYCONFIGURA_NO_MOD_PERL=0
+export MYCONFIGURA_DEVELOPER=henro
+
+alias wip='git add -A && git commit -m "wip"'
