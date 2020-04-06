@@ -23,3 +23,8 @@ export MYCONFIGURA_NO_MOD_PERL=0
 export MYCONFIGURA_DEVELOPER=henro
 
 alias wip='git add -A && git commit -m "wip"'
+alias gmb='git merge-base'
+alias gmbc='git merge-base "$(git-branch-current 2> /dev/null)" master'
+alias gwrmb='git reset $(git merge-base "$(git-branch-current 2> /dev/null)" master)'
+
+
