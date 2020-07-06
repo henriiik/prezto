@@ -19,5 +19,7 @@ alias j=fasd_cd
 
 alias chrome='open -a /Applications/Google\ Chrome.app'
 
+export SENTRY_ENVIRONMENT=henro
+export WEBRD_EXTERNAL_IP=$(ipconfig getifaddr en1)
 export WEBRD_REPO_PATH=~/Development/web-rnd
-source $WEBRD_REPO_PATH/catproxy/env.sh
+source $WEBRD_REPO_PATH/catproxy/shared_env.sh
