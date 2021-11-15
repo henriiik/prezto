@@ -1,0 +1,4 @@
+pulumi 3.67.1
+nodejs 20.5.1
+aws-vault 6.6.0
+jq 1.6
