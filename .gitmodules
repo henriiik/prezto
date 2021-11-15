@@ -29,3 +29,6 @@
 	path = modules/prompt/external/powerlevel10k
 	url = https://github.com/romkatv/powerlevel10k.git
 	shallow = true
+[submodule "modules/zsh-aws-vault"]
+	path = modules/zsh-aws-vault
+	url = https://github.com/blimmer/zsh-aws-vault.git

@@ -10,4 +10,50 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# only branches and files git completion
+__git_files () {
+  _wanted files expl 'local files' _files
+}
+
+alias j=fasd_cd
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
+
+WHATCOMPUTERISTHIS=$(hostname)
+
+if [[ "$WHATCOMPUTERISTHIS" = "DESKTOP-J25URBS" ]]; then
+  echo "detected DESKTOP-J25URBS!"
+  export PNPM_HOME="/home/henro/.local/share/pnpm"
+  export PATH="$PNPM_HOME:$PATH"
+  eval `keychain --eval --agents ssh id_ed25519`
+elif [[ "$WHATCOMPUTERISTHIS" = "bappy.localdomain" ]]; then
+  echo "detected bappy!"
+  export ASDF_DATA_DIR=`brew --prefix asdf`
+  source $ASDF_DATA_DIR/asdf.sh
+elif [[ "$WHATCOMPUTERISTHIS" = "happy.local" ]]; then
+  echo "detected happy!"
+  export ASDF_DATA_DIR=`brew --prefix asdf`
+  source $ASDF_DATA_DIR/asdf.sh
+elif [[ "$WHATCOMPUTERISTHIS" == codespaces_* ]]; then
+  echo "detected codespace!"
+  if [[ -s "$HOME/.asdf/asdf.sh" ]]; then
+    . $HOME/.asdf/asdf.sh
+  fi
+
+  export AWS_VAULT_BACKEND=file
+
+  VAULT_KEY_DIR=$HOME/.awsvault/keys
+  VAULT_KEY_FILE=$VAULT_KEY_DIR/codespace
+  rm -f $VAULT_KEY_FILE # remove file if it has an older version
+  mkdir -p $VAULT_KEY_DIR # make sure key dir exists
+  echo -n $AWS_VAULT_CODESPACE > $VAULT_KEY_FILE
+
+  AWS_CONFIG_DIR=$HOME/.aws
+  AWS_CONFIG_FILE=$AWS_CONFIG_DIR/config
+  rm -f $AWS_CONFIG_FILE # remove file if it has an older version
+  mkdir -p $AWS_CONFIG_DIR # make sure config dir exists
+  echo "[default]\nregion = eu-north-1\n\n[profile codespace]" > $AWS_CONFIG_FILE
+else
+  echo "detected unknown hostname: $WHATCOMPUTERISTHIS"
+fi
