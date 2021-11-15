@@ -10,4 +10,141 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-# Customize to your needs...
+# only branches and files git completion
+__git_files () {
+  _wanted files expl 'local files' _files
+}
+
+alias j=fasd_cd
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin
+
+WHATCOMPUTERISTHIS=$(hostname -s)
+# WHATCOMPUTERISTHIS=$(scutil --get ComputerName)
+
+if [[ "$WHATCOMPUTERISTHIS" == dappy ]]; then
+  echo "detected dappy!"
+
+  export PATH=$PATH:/Applications/Alacritty.app/Contents/MacOS
+  export AWS_PAGER=''
+  export VISUAL='vim'
+  export EDITOR='vim'
+  export GODEBUG=asyncpreemptoff=1
+  export PULUMI_OPTIMIZED_CHECKPOINT_PATCH=true
+
+  alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
+
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+
+  . "$HOME/.cargo/env"
+
+  eval "$(starship init zsh)"
+
+  eval "$(direnv hook zsh)"
+
+  # The next line updates PATH for the Google Cloud SDK.
+  if [ -f '/Users/henke/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/henke/google-cloud-sdk/path.zsh.inc'; fi
+
+  # The next line enables shell command completion for gcloud.
+  if [ -f '/Users/henke/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/henke/google-cloud-sdk/completion.zsh.inc'; fi
+else
+  echo "unknown hostname: $WHATCOMPUTERISTHIS"
+
+  STARSHIP=$(which starship)
+  if [[ "$STARSHIP" != "" && "$STARSHIP" != "starship not found" ]]; then
+    echo "detected starship!"
+    eval "$(starship init zsh)"
+  fi
+
+  DIRENV=$(which direnv)
+  if [[ "$DIRENV" != "" && "$DIRENV" != "direnv not found" ]]; then
+    echo "detected direnv!"
+    eval "$(direnv hook zsh)"
+  fi
+fi
+
+alias p="pulumi"
+alias psl="pulumi stack ls"
+alias pss="pulumi stack select"
+alias pso="pulumi stack output"
+alias pu="pulumi up"
+alias pp="pulumi preview"
+
+alias gbl="git branch --sort=-committerdate --verbose"
+
+alias wip='git add -A && git commit -m "wip"'
+alias gfmm='git fetch origin master:master'
+alias gfmma='git fetch origin main:main'
+alias gmb='git merge-base'
+alias gmbc='git merge-base "$(git-branch-current 2> /dev/null)" master'
+alias gwrmb='git reset $(git merge-base "$(git-branch-current 2> /dev/null)" master)'
+alias gwrmab='git reset $(git merge-base "$(git-branch-current 2> /dev/null)" main)'
+alias grimb='git rebase --interactive $(git merge-base "$(git-branch-current 2> /dev/null)" master)'
+alias grimab='git rebase --interactive $(git merge-base "$(git-branch-current 2> /dev/null)" main)'
+alias gwH='git reset --hard "origin/$(git-branch-current 2> /dev/null)"'
+alias gwh='git reset --soft "origin/$(git-branch-current 2> /dev/null)"'
+
+alias trashn="find . -name node_modules -type d -prune -exec trash {} +"
+
+alias dc="docker compose"
+alias dcu="docker compose up"
+alias dcd="docker compose up -d"
+alias dcs="docker compose stop"
+alias dk="docker kill"
+alias dka="docker kill \$(docker ps -q)"
+alias dps="docker ps"
+
+alias avebicd="aws-vault exec bci-clearing-dev"
+alias avebici="aws-vault exec bci-clearing-int"
+alias avebicp="aws-vault exec bci-clearing-prod"
+alias avebid="aws-vault exec bci-dev"
+alias avebii="aws-vault exec bci-int"
+alias avebip="aws-vault exec bci-prod"
+alias avebis="aws-vault exec bci-shared"
+
+alias avebxcd="aws-vault exec bcx-clearing-dev"
+alias avebxci="aws-vault exec bcx-clearing-int"
+alias avebxcp="aws-vault exec bcx-clearing-prod"
+alias avebxdd="aws-vault exec bcx-dgn-dev"
+alias avebxdi="aws-vault exec bcx-dgn-int"
+alias avebxdp="aws-vault exec bcx-dgn-prod"
+alias avebxd="aws-vault exec bcx-dev"
+alias avebxi="aws-vault exec bcx-int"
+alias avebxp="aws-vault exec bcx-prod"
+alias avebxs="aws-vault exec bcx-shared"
+
+alias avenicd="aws-vault exec ngc-clearing-dev"
+alias avenici="aws-vault exec ngc-clearing-int"
+alias avenicp="aws-vault exec ngc-clearing-prod"
+alias avenid="aws-vault exec ngc-dev"
+alias avenii="aws-vault exec ngc-int"
+alias avenip="aws-vault exec ngc-prod"
+alias avenis="aws-vault exec ngc-shared"
+
+alias avenxcd="aws-vault exec ngx-clearing-dev"
+alias avenxci="aws-vault exec ngx-clearing-int"
+alias avenxcp="aws-vault exec ngx-clearing-prod"
+alias avenxd="aws-vault exec ngx-dev"
+alias avenxi="aws-vault exec ngx-int"
+alias avenxp="aws-vault exec ngx-prod"
+alias avenxs="aws-vault exec ngx-shared"
+
+alias avebisd="aws-vault exec bci-settlement-dev"
+alias avebisi="aws-vault exec bci-settlement-int"
+alias avebisp="aws-vault exec bci-settlement-prod"
+alias avebxsd="aws-vault exec bcx-settlement-dev"
+alias avebxsi="aws-vault exec bcx-settlement-int"
+alias avebxsp="aws-vault exec bcx-settlement-prod"
+
+alias avebed="aws-vault exec empsa-dev"
+alias avebei="aws-vault exec empsa-int"
+alias avebep="aws-vault exec empsa-prod"
+
+alias assume=". assume"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/henke/Downloads/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/henke/Downloads/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/henke/Downloads/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/henke/Downloads/google-cloud-sdk/completion.zsh.inc'; fi
