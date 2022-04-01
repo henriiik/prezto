@@ -35,6 +35,14 @@ elif [[ "$WHATCOMPUTERISTHIS" = "happy.local" ]]; then
   echo "detected happy!"
   export ASDF_DATA_DIR=`brew --prefix asdf`
   source $ASDF_DATA_DIR/asdf.sh
+elif [[ "$WHATCOMPUTERISTHIS" = "dappy.localdomain" ]]; then
+  echo "detected dappy!"
+  export GODEBUG=asyncpreemptoff=1
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  if [[ -s "$HOME/.asdf/asdf.sh" ]]; then
+    . $HOME/.asdf/asdf.sh
+  fi
+  . "$HOME/.cargo/env"
 elif [[ "$WHATCOMPUTERISTHIS" == codespaces_* ]]; then
   echo "detected codespace!"
   if [[ -s "$HOME/.asdf/asdf.sh" ]]; then
