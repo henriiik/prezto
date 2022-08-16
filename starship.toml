@@ -7,6 +7,9 @@ disabled = true
 [nodejs]
 disabled = true
 
+[elixir]
+disabled = true
+
 [container]
 disabled = true
 
