@@ -15,3 +15,6 @@ disabled = true
 
 [git_branch]
 style = "bold green"
+
+[aws]
+force_display = true
