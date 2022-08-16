@@ -63,6 +63,10 @@ elif [[ "$WHATCOMPUTERISTHIS" == codespaces_* ]]; then
   rm -f $AWS_CONFIG_FILE # remove file if it has an older version
   mkdir -p $AWS_CONFIG_DIR # make sure config dir exists
   echo "[default]\nregion = eu-north-1\n\n[profile codespace]" > $AWS_CONFIG_FILE
+elif [[ "$GITHUB_CODESPACE_TOKEN" ]]; then
+  echo "detected codespace!"
+  eval "$(starship init zsh)"
+  eval "$(direnv hook zsh)"
 else
   echo "detected unknown hostname: $WHATCOMPUTERISTHIS"
 fi

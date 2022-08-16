@@ -1,0 +1,14 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+[package]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[container]
+disabled = true
+
+[git_branch]
+style = "bold green"
