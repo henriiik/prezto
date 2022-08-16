@@ -45,8 +45,8 @@ zstyle ':prezto:load' pmodule \
   'zsh-aws-vault' \
   'osx' \
   'homebrew' \
-  'syntax-highlighting' \
-  'prompt'
+  'syntax-highlighting'
+  # 'prompt'
 
 #
 # Autosuggestions

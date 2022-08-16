@@ -35,7 +35,7 @@ elif [[ "$WHATCOMPUTERISTHIS" = "happy.local" ]]; then
   echo "detected happy!"
   export ASDF_DATA_DIR=`brew --prefix asdf`
   source $ASDF_DATA_DIR/asdf.sh
-elif [[ "$WHATCOMPUTERISTHIS" = "dappy.localdomain" ]]; then
+elif [[ "$WHATCOMPUTERISTHIS" == dappy* ]]; then
   echo "detected dappy!"
   export GODEBUG=asyncpreemptoff=1
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -43,6 +43,7 @@ elif [[ "$WHATCOMPUTERISTHIS" = "dappy.localdomain" ]]; then
     . $HOME/.asdf/asdf.sh
   fi
   . "$HOME/.cargo/env"
+  eval "$(starship init zsh)"
 elif [[ "$WHATCOMPUTERISTHIS" == codespaces_* ]]; then
   echo "detected codespace!"
   if [[ -s "$HOME/.asdf/asdf.sh" ]]; then
@@ -65,3 +66,30 @@ elif [[ "$WHATCOMPUTERISTHIS" == codespaces_* ]]; then
 else
   echo "detected unknown hostname: $WHATCOMPUTERISTHIS"
 fi
+
+alias p="pulumi"
+alias psl="pulumi stack ls"
+alias pss="pulumi stack select"
+alias pso="pulumi stack output"
+alias pu="pulumi up"
+alias pp="pulumi preview"
+
+alias gbl="git branch --sort=-committerdate --verbose"
+
+alias trashn="find . -name node_modules -type d -prune -exec trash {} +"
+
+alias avebicd="KUBECONFIG=~/kubeconfig/bci-clearing-dev-main.json aws-vault exec bci-clearing-dev"
+alias avebici="KUBECONFIG=~/kubeconfig/bci-clearing-int-main.json aws-vault exec bci-clearing-int"
+alias avebicp="KUBECONFIG=~/kubeconfig/bci-clearing-prod-main.json aws-vault exec bci-clearing-prod"
+
+alias avebxcd="KUBECONFIG=~/kubeconfig/bcx-clearing-dev-main.json aws-vault exec bcx-clearing-dev"
+alias avebxci="KUBECONFIG=~/kubeconfig/bcx-clearing-int-main.json aws-vault exec bcx-clearing-int"
+alias avebxcp="KUBECONFIG=~/kubeconfig/bcx-clearing-prod-main.json aws-vault exec bcx-clearing-prod"
+
+# alias avenicd="KUBECONFIG=~/kubeconfig/ngc-clearing-dev-main.json aws-vault exec ngc-clearing-dev"
+alias avenici="KUBECONFIG=~/kubeconfig/ngc-clearing-int-main.json aws-vault exec ngc-clearing-int"
+alias avenicp="KUBECONFIG=~/kubeconfig/ngc-clearing-prod-main.json aws-vault exec ngc-clearing-prod"
+
+# alias avenxcd="KUBECONFIG=~/kubeconfig/ngx-clearing-dev-main.json aws-vault exec ngx-clearing-dev"
+alias avenxci="KUBECONFIG=~/kubeconfig/ngx-clearing-int-main.json aws-vault exec ngx-clearing-int"
+alias avenxcp="KUBECONFIG=~/kubeconfig/ngx-clearing-prod-main.json aws-vault exec ngx-clearing-prod"
