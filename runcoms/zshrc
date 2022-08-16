@@ -80,6 +80,15 @@ alias pp="pulumi preview"
 
 alias gbl="git branch --sort=-committerdate --verbose"
 
+alias wip='git add -A && git commit -m "wip"'
+alias gfmm='git fetch origin master:master'
+alias gmb='git merge-base'
+alias gmbc='git merge-base "$(git-branch-current 2> /dev/null)" master'
+alias gwrmb='git reset $(git merge-base "$(git-branch-current 2> /dev/null)" master)'
+alias grimb='git rebase --interactive $(git merge-base "$(git-branch-current 2> /dev/null)" master)'
+alias gwH='git reset --hard "origin/$(git-branch-current 2> /dev/null)"'
+alias gwh='git reset --soft "origin/$(git-branch-current 2> /dev/null)"'
+
 alias trashn="find . -name node_modules -type d -prune -exec trash {} +"
 
 alias avebicd="KUBECONFIG=~/kubeconfig/bci-clearing-dev-main.json aws-vault exec bci-clearing-dev"
