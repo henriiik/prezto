@@ -106,3 +106,10 @@ alias avenicp="KUBECONFIG=~/kubeconfig/ngc-clearing-prod-main.json aws-vault exe
 # alias avenxcd="KUBECONFIG=~/kubeconfig/ngx-clearing-dev-main.json aws-vault exec ngx-clearing-dev"
 alias avenxci="KUBECONFIG=~/kubeconfig/ngx-clearing-int-main.json aws-vault exec ngx-clearing-int"
 alias avenxcp="KUBECONFIG=~/kubeconfig/ngx-clearing-prod-main.json aws-vault exec ngx-clearing-prod"
+
+alias dc="docker compose"
+alias dcu="docker compose up"
+alias dcd="docker compose up -d"
+alias dk="docker kill"
+alias dka="docker kill $(docker ps -q)"
+alias dps="docker ps"
