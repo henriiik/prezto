@@ -44,6 +44,7 @@ elif [[ "$WHATCOMPUTERISTHIS" == dappy* ]]; then
   fi
   . "$HOME/.cargo/env"
   eval "$(starship init zsh)"
+  eval "$(direnv hook zsh)"
 elif [[ "$WHATCOMPUTERISTHIS" == codespaces_* ]]; then
   echo "detected codespace!"
   if [[ -s "$HOME/.asdf/asdf.sh" ]]; then
@@ -111,5 +112,5 @@ alias dc="docker compose"
 alias dcu="docker compose up"
 alias dcd="docker compose up -d"
 alias dk="docker kill"
-alias dka="docker kill $(docker ps -q)"
+alias dka="docker kill \$(docker ps -q)"
 alias dps="docker ps"
