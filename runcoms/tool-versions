@@ -1,0 +1,14 @@
+pulumi 3.35.3
+nodejs 17.8.0
+aws-vault 6.6.0
+jq 1.6
+yarn 1.22.18
+golang 1.19.2
+dotnet-core 6.0.202
+
+poetry 1.1.13
+python 3.10.8
+awscli 2.2.5
+kubectl 1.18.20
+pnpm 7.9.5
+action-validator 0.1.2
