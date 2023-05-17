@@ -21,6 +21,7 @@ alias j=fasd_cd
 export PATH=$PATH:$HOME/.pulumi/bin
 
 WHATCOMPUTERISTHIS=$(hostname)
+# WHATCOMPUTERISTHIS=$(scutil --get ComputerName)
 
 if [[ "$WHATCOMPUTERISTHIS" = "DESKTOP-J25URBS" ]]; then
   echo "detected DESKTOP-J25URBS!"
@@ -35,14 +36,16 @@ elif [[ "$WHATCOMPUTERISTHIS" = "happy.local" ]]; then
   echo "detected happy!"
   export ASDF_DATA_DIR=`brew --prefix asdf`
   source $ASDF_DATA_DIR/asdf.sh
-elif [[ "$WHATCOMPUTERISTHIS" == dappy* ]]; then
+elif [[ "$WHATCOMPUTERISTHIS" == "dappy" ]]; then
   echo "detected dappy!"
 
-  export PAGER=''
+  export AWS_PAGER=''
   export VISUAL='hx'
   export EDITOR='hx'
   export GODEBUG=asyncpreemptoff=1
   export PULUMI_OPTIMIZED_CHECKPOINT_PATCH=true
+
+  alias tailscale="/Applications/Tailscale.app/Contents/MacOS/Tailscale"
 
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
