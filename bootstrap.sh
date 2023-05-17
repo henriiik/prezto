@@ -20,3 +20,7 @@ ln -sf ~/.zprezto/.zsh_history ~/.zsh_history
 sudo chsh -s /bin/zsh vscode
 
 curl -sS https://starship.rs/install.sh | sh -s -- --force
+
+mkdir -p ~/.ssh
+touch ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
