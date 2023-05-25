@@ -8,8 +8,9 @@ dotnet-core 6.0.202
 
 poetry 1.1.13
 python 3.10.8 3.9.12
-awscli 2.11.20
+awscli 2.11.22
 kubectl 1.18.20
 pnpm 7.9.5
 action-validator 0.1.2
 java openjdk-20
+github-cli 2.29.0
