@@ -17,7 +17,7 @@ done
 touch ${ZDOTDIR:-$HOME}/.zsh_history
 ln -sf ~/.zprezto/.zsh_history ~/.zsh_history
 
-sudo chsh -s /bin/zsh ${$USER:-vscode}
+sudo chsh -s /bin/zsh $USER
 
 curl -sS https://starship.rs/install.sh | sh -s -- --force
 
