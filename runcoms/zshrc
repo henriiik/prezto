@@ -23,25 +23,13 @@ export PATH=$PATH:$HOME/.pulumi/bin
 WHATCOMPUTERISTHIS=$(hostname)
 # WHATCOMPUTERISTHIS=$(scutil --get ComputerName)
 
-if [[ "$WHATCOMPUTERISTHIS" = "DESKTOP-J25URBS" ]]; then
-  echo "detected DESKTOP-J25URBS!"
-  export PNPM_HOME="/home/henro/.local/share/pnpm"
-  export PATH="$PNPM_HOME:$PATH"
-  eval `keychain --eval --agents ssh id_ed25519`
-elif [[ "$WHATCOMPUTERISTHIS" = "bappy.localdomain" ]]; then
-  echo "detected bappy!"
-  export ASDF_DATA_DIR=`brew --prefix asdf`
-  source $ASDF_DATA_DIR/asdf.sh
-elif [[ "$WHATCOMPUTERISTHIS" = "happy.local" ]]; then
-  echo "detected happy!"
-  export ASDF_DATA_DIR=`brew --prefix asdf`
-  source $ASDF_DATA_DIR/asdf.sh
-elif [[ "$WHATCOMPUTERISTHIS" == "dappy" ]]; then
+if [[ "$WHATCOMPUTERISTHIS" == dappy* ]]; then
   echo "detected dappy!"
 
+  export PATH=$PATH:/Applications/Alacritty.app/Contents/MacOS
   export AWS_PAGER=''
-  export VISUAL='hx'
-  export EDITOR='hx'
+  export VISUAL='vim'
+  export EDITOR='vim'
   export GODEBUG=asyncpreemptoff=1
   export PULUMI_OPTIMIZED_CHECKPOINT_PATCH=true
 
@@ -49,56 +37,28 @@ elif [[ "$WHATCOMPUTERISTHIS" == "dappy" ]]; then
 
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  if [[ -s "$HOME/.asdf/asdf.sh" ]]; then
-    . $HOME/.asdf/asdf.sh
-  fi
-
   . "$HOME/.cargo/env"
 
   eval "$(starship init zsh)"
 
   eval "$(direnv hook zsh)"
 
-  if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-    source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-  fi
-
   # The next line updates PATH for the Google Cloud SDK.
   if [ -f '/Users/henke/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/henke/google-cloud-sdk/path.zsh.inc'; fi
 
   # The next line enables shell command completion for gcloud.
   if [ -f '/Users/henke/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/henke/google-cloud-sdk/completion.zsh.inc'; fi
-
-elif [[ "$WHATCOMPUTERISTHIS" == codespaces_* ]]; then
-  echo "detected codespace!"
-  if [[ -s "$HOME/.asdf/asdf.sh" ]]; then
-    . $HOME/.asdf/asdf.sh
-  fi
-
-  export AWS_VAULT_BACKEND=file
-
-  VAULT_KEY_DIR=$HOME/.awsvault/keys
-  VAULT_KEY_FILE=$VAULT_KEY_DIR/codespace
-  rm -f $VAULT_KEY_FILE # remove file if it has an older version
-  mkdir -p $VAULT_KEY_DIR # make sure key dir exists
-  echo -n $AWS_VAULT_CODESPACE > $VAULT_KEY_FILE
-
-  AWS_CONFIG_DIR=$HOME/.aws
-  AWS_CONFIG_FILE=$AWS_CONFIG_DIR/config
-  rm -f $AWS_CONFIG_FILE # remove file if it has an older version
-  mkdir -p $AWS_CONFIG_DIR # make sure config dir exists
-  echo "[default]\nregion = eu-north-1\n\n[profile codespace]" > $AWS_CONFIG_FILE
 else
   echo "unknown hostname: $WHATCOMPUTERISTHIS"
 
   STARSHIP=$(which starship)
-  if [[ "$STARSHIP" != "" ]]; then
+  if [[ "$STARSHIP" != "" && "$STARSHIP" != "starship not found" ]]; then
     echo "detected starship!"
     eval "$(starship init zsh)"
   fi
 
   DIRENV=$(which direnv)
-  if [[ "$DIRENV" != "" ]]; then
+  if [[ "$DIRENV" != "" && "$DIRENV" != "direnv not found" ]]; then
     echo "detected direnv!"
     eval "$(direnv hook zsh)"
   fi
@@ -119,27 +79,13 @@ alias gfmma='git fetch origin main:main'
 alias gmb='git merge-base'
 alias gmbc='git merge-base "$(git-branch-current 2> /dev/null)" master'
 alias gwrmb='git reset $(git merge-base "$(git-branch-current 2> /dev/null)" master)'
+alias gwrmab='git reset $(git merge-base "$(git-branch-current 2> /dev/null)" main)'
 alias grimb='git rebase --interactive $(git merge-base "$(git-branch-current 2> /dev/null)" master)'
+alias grimab='git rebase --interactive $(git merge-base "$(git-branch-current 2> /dev/null)" main)'
 alias gwH='git reset --hard "origin/$(git-branch-current 2> /dev/null)"'
 alias gwh='git reset --soft "origin/$(git-branch-current 2> /dev/null)"'
 
 alias trashn="find . -name node_modules -type d -prune -exec trash {} +"
-
-alias avebicd="KUBECONFIG=~/kubeconfig/bci-clearing-dev-main.json aws-vault exec bci-clearing-dev"
-alias avebici="KUBECONFIG=~/kubeconfig/bci-clearing-int-main.json aws-vault exec bci-clearing-int"
-alias avebicp="KUBECONFIG=~/kubeconfig/bci-clearing-prod-main.json aws-vault exec bci-clearing-prod"
-
-alias avebxcd="KUBECONFIG=~/kubeconfig/bcx-clearing-dev-main.json aws-vault exec bcx-clearing-dev"
-alias avebxci="KUBECONFIG=~/kubeconfig/bcx-clearing-int-main.json aws-vault exec bcx-clearing-int"
-alias avebxcp="KUBECONFIG=~/kubeconfig/bcx-clearing-prod-main.json aws-vault exec bcx-clearing-prod"
-
-# alias avenicd="KUBECONFIG=~/kubeconfig/ngc-clearing-dev-main.json aws-vault exec ngc-clearing-dev"
-alias avenici="KUBECONFIG=~/kubeconfig/ngc-clearing-int-main.json aws-vault exec ngc-clearing-int"
-alias avenicp="KUBECONFIG=~/kubeconfig/ngc-clearing-prod-main.json aws-vault exec ngc-clearing-prod"
-
-# alias avenxcd="KUBECONFIG=~/kubeconfig/ngx-clearing-dev-main.json aws-vault exec ngx-clearing-dev"
-alias avenxci="KUBECONFIG=~/kubeconfig/ngx-clearing-int-main.json aws-vault exec ngx-clearing-int"
-alias avenxcp="KUBECONFIG=~/kubeconfig/ngx-clearing-prod-main.json aws-vault exec ngx-clearing-prod"
 
 alias dc="docker compose"
 alias dcu="docker compose up"
@@ -148,3 +94,46 @@ alias dcs="docker compose stop"
 alias dk="docker kill"
 alias dka="docker kill \$(docker ps -q)"
 alias dps="docker ps"
+
+alias avebicd="aws-vault exec bci-clearing-dev"
+alias avebici="aws-vault exec bci-clearing-int"
+alias avebicp="aws-vault exec bci-clearing-prod"
+alias avebid="aws-vault exec bci-dev"
+alias avebii="aws-vault exec bci-int"
+alias avebip="aws-vault exec bci-prod"
+alias avebis="aws-vault exec bci-shared"
+
+alias avebxcd="aws-vault exec bcx-clearing-dev"
+alias avebxci="aws-vault exec bcx-clearing-int"
+alias avebxcp="aws-vault exec bcx-clearing-prod"
+alias avebxdd="aws-vault exec bcx-dgn-dev"
+alias avebxdi="aws-vault exec bcx-dgn-int"
+alias avebxdp="aws-vault exec bcx-dgn-prod"
+alias avebxd="aws-vault exec bcx-dev"
+alias avebxi="aws-vault exec bcx-int"
+alias avebxp="aws-vault exec bcx-prod"
+alias avebxs="aws-vault exec bcx-shared"
+
+alias avenicd="aws-vault exec ngc-clearing-dev"
+alias avenici="aws-vault exec ngc-clearing-int"
+alias avenicp="aws-vault exec ngc-clearing-prod"
+alias avenid="aws-vault exec ngc-dev"
+alias avenii="aws-vault exec ngc-int"
+alias avenip="aws-vault exec ngc-prod"
+alias avenis="aws-vault exec ngc-shared"
+
+alias avenxcd="aws-vault exec ngx-clearing-dev"
+alias avenxci="aws-vault exec ngx-clearing-int"
+alias avenxcp="aws-vault exec ngx-clearing-prod"
+alias avenxd="aws-vault exec ngx-dev"
+alias avenxi="aws-vault exec ngx-int"
+alias avenxp="aws-vault exec ngx-prod"
+alias avenxs="aws-vault exec ngx-shared"
+
+
+alias avebisd="aws-vault exec bci-settlement-dev"
+alias avebisi="aws-vault exec bci-settlement-int"
+alias avebisp="aws-vault exec bci-settlement-prod"
+alias avebxsd="aws-vault exec bcx-settlement-dev"
+alias avebxsi="aws-vault exec bcx-settlement-int"
+alias avebxsp="aws-vault exec bcx-settlement-prod"
